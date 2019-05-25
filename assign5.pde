@@ -1,4 +1,4 @@
-PPImage title, gameover, gamewin, startNormal, startHovered, restartNormal, restartHovered;
+PImage title, gameover, gamewin, startNormal, startHovered, restartNormal, restartHovered;
 PImage groundhogIdle, groundhogLeft, groundhogRight, groundhogDown;
 PImage bg, life, cabbage, soilEmpty, clock, caution, sweethome;
 PImage soldier;
@@ -584,26 +584,22 @@ boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float 
 }
 
 String convertFramesToTimeString(int frames){	// Requirement #4
-  int time=floor(frames/60);
-  int secondsD=floor(time%60/10);
-  int secondsS=floor(time%60%10);
-  int minutesD=floor(time/60/10);
-  int minutesS=floor(time/60%10);
-	return (minutesD+minutesS+":"+secondsD+secondsS);
-}
+  
+  int sec = floor((frames / 60) % 60);
+  int min = floor(frames /60/60);
+  String ssec = nf(sec,2);
+  String smin = nf(min,2);
+  
+  return smin + ":" + ssec ;}
+
 
 color getTimeTextColor(int frames){
-  int time=floor(frames/60);
-  int secondsD=floor(time%60/10);
-  int secondsS=floor(time%60%10);
-  int minutesD=floor(time/60/10);
-  int minutesS=floor(time/60%10);
-  if(minutesS>=2){				// Requirement #5
-	return #00ffff;}
-else if(minutesS<2&&minutesS>=1){return #ffffff;}
-else if(minutesS<1&&secondsD>=3){return #ffcc00;}
-else if(secondsD<3&&secondsD>=1){return #ff6600;}
-else{return #ff0000;}
+  if(frames >= 120*60){return #00ffff;}
+  else if(frames < 120*60 && frames >= 60*60){return #ffffff;}
+  else if(frames < 60*60 && frames >= 30*60){return #ffcc00;}
+  else if(frames < 30*60 && frames >= 10*60){return #ff6600;}
+  else{return #ff0000;}
+
 
 }
 
